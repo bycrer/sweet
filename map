@@ -1,0 +1,23 @@
+ object: file
+    action: create
+    notes: 'Mapped to the process_file_events, file, and file_events tables.'
+    fields:
+      - creation_time
+      - file_name
+      - file_path
+      - image_path
+      - md5_hash
+      - pid
+      - ppid
+      - sha1_hash
+      - sha256_hash
+      - user
+  - object: file
+    action: delete
+    notes: 'Mapped to the process_file_events, file, and file_events tables.'
+    fields:
+      - creation_time
+      - file_name
+      - file_path
+      - image_path
+      - md5_hash
