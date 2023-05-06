@@ -1,0 +1,22 @@
+  # check if this is a new release
+  smoke:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tea.outputs.version }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        id: tea
+
+      - id: rev-parse
+        name: did we already publish this version?
+        run: |
+          # fetch tags since actions/checkout is a shallow checkout
+          git fetch --prune --unshallow --tags
+
+          if git show-ref --tags v${{ steps.tea.outputs.version }} --quiet; then
+            echo "::set-output name=result::cancel"
+          fi
+
+      - uses: andymckay/cancel-action@0.2
+        if: ${{ steps.rev-parse.outputs.result == 'cancel' }}
